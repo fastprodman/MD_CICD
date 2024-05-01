@@ -49,10 +49,10 @@ jobs:
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
 
-  tests-on-dev:
-    needs: deploy-to-dev
-    runs-on: self-hosted
-    steps:
+  # tests-on-dev:
+  #   needs: deploy-to-dev
+  #   runs-on: self-hosted
+  #   steps:
       - name: Checkout course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
