@@ -26,6 +26,21 @@ jobs:
     needs: install-pip-deps
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings'
+    
+      - name: Stop existing service
+        run: pm2 delete greetings-app-dev & set "errorlevel=0" || true
+        working-directory: ./python-greetings
+
+      - name: Start new service
+        run: pm2 start app.py --name greetings-app-dev -- --port 7001
+        working-directory: ./python-greetings
+
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
 
@@ -40,6 +55,21 @@ jobs:
     needs: tests-on-dev
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings'
+
+      - name: Stop existing service
+        run: pm2 delete greetings-app-staging & set "errorlevel=0" || true
+        working-directory: ./python-greetings
+
+      - name: Start new service
+        run: pm2 start app.py --name greetings-app-staging -- --port 7002
+        working-directory: ./python-greetings
+
       - name: Deploy to Staging Environment
         run: echo "Deploying to staging environment"
 
@@ -54,6 +84,21 @@ jobs:
     needs: tests-on-staging
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings'
+
+      - name: Stop existing service
+        run: pm2 delete greetings-app-preprod & set "errorlevel=0" || true
+        working-directory: ./python-greetings
+
+      - name: Start new service
+        run: pm2 start app.py --name greetings-app-preprod -- --port 7003
+        working-directory: ./python-greetings
+
       - name: Deploy to Pre-Production Environment
         run: echo "Deploying to preprod environment"
 
@@ -67,8 +112,21 @@ jobs:
   deploy-to-prod:
     needs: tests-on-preprod
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings'
+
+      - name: Stop existing service
+        run: pm2 delete greetings-app-prod & set "errorlevel=0" || true
+        working-directory: ./python-greetings
+
+      - name: Start new service
+        run: pm2 start app.py --name greetings-app-prod -- --port 7004
+        working-directory: ./python-greetings
+
       - name: Deploy to Production Environment
         run: echo "Deploying to prod environment"
 
