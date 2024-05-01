@@ -16,7 +16,7 @@ jobs:
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
+          repository: 'fastprodman/python-greetings'
           path: 'python-greetings'
 
       - name: Install Python dependencies
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
+          repository: 'fastprodman/python-greetings'
           path: 'python-greetings'
     
       - name: Stop existing service
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/course-js-api-framework'
+          repository: 'fastprodman/course-js-api-framework'
           path: 'course-js-api-framework'
 
       - name: Install dependencies
