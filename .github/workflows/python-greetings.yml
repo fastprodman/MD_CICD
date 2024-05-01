@@ -49,12 +49,19 @@ jobs:
     needs: deploy-to-dev
     runs-on: self-hosted
     steps:
-
       - name: Checkout course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'course-js-api-framework'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./course-js-api-framework
+
+      - name: Run tests for Development environment
+        run: npm run greetings greetings_dev
+        working-directory: ./course-js-api-framework
         
       - name: Run tests in Development Environment
         run: echo "Running tests on dev environment"
@@ -88,6 +95,17 @@ jobs:
       - name: Run tests in Staging Environment
         run: echo "Running tests on staging environment"
 
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./course-js-api-framework
+
+      - name: Run tests for staging environment
+        run: npm run greetings greetings_staging
+        working-directory: ./course-js-api-framework
+        
+      - name: Run tests in staging Environment
+        run: echo "Running tests on staging environment"
+
   deploy-to-preprod:
     needs: tests-on-staging
     runs-on: self-hosted
@@ -115,6 +133,17 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Run tests in Pre-Production Environment
+        run: echo "Running tests on preprod environment"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./course-js-api-framework
+
+      - name: Run tests for preprod environment
+        run: npm run greetings greetings_preprod
+        working-directory: ./course-js-api-framework
+        
+      - name: Run tests in preprod Environment
         run: echo "Running tests on preprod environment"
 
   deploy-to-prod:
@@ -145,3 +174,15 @@ jobs:
     steps:
       - name: Run tests in Production Environment
         run: echo "Running tests on prod environment"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./course-js-api-framework
+
+      - name: Run tests for prod environment
+        run: npm run greetings greetings_prod
+        working-directory: ./course-js-api-framework
+        
+      - name: Run tests in prod Environment
+        run: echo "Running tests on prod environment"
+
