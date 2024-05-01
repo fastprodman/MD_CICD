@@ -64,6 +64,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # You can specify the Node.js version that suits your project
+
+      - name: Install PM2
+        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
+
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
@@ -93,6 +101,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # You can specify the Node.js version that suits your project
+
+      - name: Install PM2
+        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
+
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
@@ -121,6 +137,15 @@ jobs:
     needs: tests-on-preprod
     runs-on: ubuntu-latest
     steps:
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # You can specify the Node.js version that suits your project
+
+      - name: Install PM2
+        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
+
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
