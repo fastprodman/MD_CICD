@@ -10,7 +10,7 @@ on:
 
 jobs:
   install-pip-deps:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
@@ -24,16 +24,8 @@ jobs:
 
   deploy-to-dev:
     needs: install-pip-deps
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # You can specify the Node.js version that suits your project
-
-      - name: Install PM2
-        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
 
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
@@ -54,7 +46,7 @@ jobs:
 
   tests-on-dev:
     needs: deploy-to-dev
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
 
       - name: Checkout course-js-api-framework repository
@@ -62,27 +54,14 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'course-js-api-framework'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # Specify the Node.js version suitable for your project
         
       - name: Run tests in Development Environment
         run: echo "Running tests on dev environment"
 
   deploy-to-staging:
     needs: tests-on-dev
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # You can specify the Node.js version that suits your project
-
-      - name: Install PM2
-        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
 
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
@@ -103,23 +82,15 @@ jobs:
 
   tests-on-staging:
     needs: deploy-to-staging
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Run tests in Staging Environment
         run: echo "Running tests on staging environment"
 
   deploy-to-preprod:
     needs: tests-on-staging
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # You can specify the Node.js version that suits your project
-
-      - name: Install PM2
-        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
 
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
@@ -140,23 +111,15 @@ jobs:
 
   tests-on-preprod:
     needs: deploy-to-preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Run tests in Pre-Production Environment
         run: echo "Running tests on preprod environment"
 
   deploy-to-prod:
     needs: tests-on-preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # You can specify the Node.js version that suits your project
-
-      - name: Install PM2
-        run: npm install pm2@latest -g  # Installs the latest version of PM2 globally
 
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
