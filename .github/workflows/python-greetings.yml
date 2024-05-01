@@ -35,7 +35,7 @@ jobs:
           path: 'python-greetings'
     
       - name: Stop existing service
-        run: pm2 delete greetings-app-dev & set "errorlevel=0" || true
+        run: pm2 delete greetings-app-dev || true
         working-directory: ./python-greetings
 
       - name: Start new service
@@ -78,7 +78,7 @@ jobs:
           path: 'python-greetings'
 
       - name: Stop existing service
-        run: pm2 delete greetings-app-staging & set "errorlevel=0" || true
+        run: pm2 delete greetings-app-dev || true
         working-directory: ./python-greetings
 
       - name: Start new service
@@ -118,7 +118,7 @@ jobs:
           path: 'python-greetings'
 
       - name: Stop existing service
-        run: pm2 delete greetings-app-preprod & set "errorlevel=0" || true
+        run: pm2 delete greetings-app-dev || true
         working-directory: ./python-greetings
 
       - name: Start new service
@@ -158,7 +158,7 @@ jobs:
           path: 'python-greetings'
 
       - name: Stop existing service
-        run: pm2 delete greetings-app-prod & set "errorlevel=0" || true
+        run: pm2 delete greetings-app-dev || true
         working-directory: ./python-greetings
 
       - name: Start new service
