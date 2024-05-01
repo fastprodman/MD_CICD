@@ -34,7 +34,7 @@ jobs:
           path: 'python-greetings'
     
       - name: Stop existing service
-        run: pm2 delete greetings-app-dev; if (!$?) { $errorlevel = 0 } else { $true }
+        run: pm2 delete greetings-app-dev & set "errorlevel=0" || true
         working-directory: ./python-greetings
 
       - name: Start new service
