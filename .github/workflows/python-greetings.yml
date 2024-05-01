@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements.txt
         working-directory: ./python-greetings
 
-  tests-on-dev:
+  deploy-to-dev:
     needs: install-pip-deps
     runs-on: self-hosted
     steps:
@@ -42,17 +42,22 @@ jobs:
         run: pm2 start app.py --name greetings-app-dev -- --port 7001
         working-directory: ./python-greetings
 
-      - name: Check if the service is running
-        run: pm2 show greetings-app-dev
-        working-directory: ./python-greetings
+      - name: Check if port 7001 is in use
+        run: |
+          if netstat -tuln | grep ':7001' > /dev/null; then
+            echo "Something is running on port 7001."
+            exit 1  # Optional: Fail the job if something is running on the port
+          else
+            echo "Port 7001 is free."
+          fi
 
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
 
-  # tests-on-dev:
-  #   needs: deploy-to-dev
-  #   runs-on: self-hosted
-  #   steps:
+  tests-on-dev:
+    needs: deploy-to-dev
+    runs-on: self-hosted
+    steps:
       - name: Checkout course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
