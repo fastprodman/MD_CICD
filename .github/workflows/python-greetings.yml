@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements.txt
         working-directory: ./python-greetings
 
-  deploy-to-dev:
+  tests-on-dev:
     needs: install-pip-deps
     runs-on: self-hosted
     steps:
