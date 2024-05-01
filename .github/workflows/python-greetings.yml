@@ -39,7 +39,7 @@ jobs:
         working-directory: ./python-greetings
 
       - name: Start new service
-        run: pm2 start app.py --name greetings-app-dev -- --port 7001
+        run: pm2 start app.py --name greetings-app-dev -- --PORT 7001
         working-directory: ./python-greetings
 
       - name: Check if port 7001 is in use
@@ -51,10 +51,10 @@ jobs:
             echo "Port 7001 is free."
           fi
 
-      - name: Check logs
-        run: |
-          pm2 show greetings-app-dev
-          pm2 logs greetings-app-dev --lines 100
+      # - name: Check logs
+      #   run: |
+      #     pm2 show greetings-app-dev
+      #     pm2 logs greetings-app-dev --lines 100
 
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
