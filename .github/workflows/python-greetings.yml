@@ -1,0 +1,80 @@
+name: Python Greetings CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  install-pip-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+  deploy-to-dev:
+    needs: install-pip-deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Development Environment
+        run: echo "Deploying to dev environment"
+
+  tests-on-dev:
+    needs: deploy-to-dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests in Development Environment
+        run: echo "Running tests on dev environment"
+
+  deploy-to-staging:
+    needs: tests-on-dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Staging Environment
+        run: echo "Deploying to staging environment"
+
+  tests-on-staging:
+    needs: deploy-to-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests in Staging Environment
+        run: echo "Running tests on staging environment"
+
+  deploy-to-preprod:
+    needs: tests-on-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Pre-Production Environment
+        run: echo "Deploying to preprod environment"
+
+  tests-on-preprod:
+    needs: deploy-to-preprod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests in Pre-Production Environment
+        run: echo "Running tests on preprod environment"
+
+  deploy-to-prod:
+    needs: tests-on-preprod
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to Production Environment
+        run: echo "Deploying to prod environment"
+
+  tests-on-prod:
+    needs: deploy-to-prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests in Production Environment
+        run: echo "Running tests on prod environment"
