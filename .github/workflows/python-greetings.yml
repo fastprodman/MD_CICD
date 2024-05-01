@@ -56,6 +56,26 @@ jobs:
     needs: deploy-to-dev
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout course-js-api-framework repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'course-js-api-framework'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # Specify the Node.js version suitable for your project
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./course-js-api-framework
+
+      - name: Run tests for Development environment
+        run: npm run greetings greetings_dev
+        working-directory: ./course-js-api-framework
+        
       - name: Run tests in Development Environment
         run: echo "Running tests on dev environment"
 
