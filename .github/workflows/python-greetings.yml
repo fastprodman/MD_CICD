@@ -16,8 +16,9 @@ jobs:
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'fastprodman/python-greetings'
+          repository: 'mtararujs/python-greetings'
           path: 'python-greetings'
+          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
 
       - name: Install Python dependencies
         run: pip3 install -r requirements.txt
@@ -31,8 +32,9 @@ jobs:
       - name: Checkout python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'fastprodman/python-greetings'
+          repository: 'mtararujs/python-greetings'
           path: 'python-greetings'
+          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
     
       - name: Stop existing service
         run: pm2 delete greetings-app-dev || true
