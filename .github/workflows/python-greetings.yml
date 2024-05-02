@@ -44,11 +44,6 @@ jobs:
         run: pm2 start app.py --name greetings-app-dev -- --port 7001
         working-directory: ./python-greetings
 
-      - name: Check logs
-        run: |
-          pm2 show greetings-app-dev
-          pm2 logs greetings-app-dev --lines 100
-
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
 
