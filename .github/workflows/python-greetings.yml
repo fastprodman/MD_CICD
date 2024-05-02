@@ -41,7 +41,7 @@ jobs:
         working-directory: ./python-greetings
 
       - name: Start new service
-        run: pm2 start app.py --name greetings-app-dev -- --port 7001
+        run: bash -c "pm2 start app.py --name greetings-app-dev -- --port 7001"
         working-directory: ./python-greetings
 
       - name: Check if port 7001 is in use
