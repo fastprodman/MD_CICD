@@ -44,6 +44,15 @@ jobs:
         run: pm2 start app.py --name greetings-app-dev -- --port 7001
         working-directory: ./python-greetings
 
+      - name: Check if port 7001 is in use
+        run: |
+          if netstat -tuln | grep ':7001' > /dev/null; then
+            echo "Something is running on port 7001."
+            exit 1  # Optional: Fail the job if something is running on the port
+          else
+            echo "Port 7001 is free."
+          fi
+
       - name: Deploy to Development Environment
         run: echo "Deploying to dev environment"
 
@@ -56,6 +65,15 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'course-js-api-framework'
+
+      - name: Check if port 7001 is in use
+        run: |
+          if netstat -tuln | grep ':7001' > /dev/null; then
+            echo "Something is running on port 7001."
+            exit 1  # Optional: Fail the job if something is running on the port
+          else
+            echo "Port 7001 is free."
+          fi
 
       - name: Install dependencies
         run: npm install
